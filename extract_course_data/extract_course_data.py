@@ -1,14 +1,14 @@
-from mimetypes import init
 from openpyxl import Workbook, load_workbook
 import re
 import json
 import copy
+import sys
 
 json_data = {"courses":[]} # The data we will be storing!
 
 cols_name = ["A","B","C","D","E","F","G","H","I","J","K"]
 
-json_data_entry_keys = ["dept","course_name","slot_name","credits","course_type","instructor","instructor_email","dh","tut","practical"]
+json_data_entry_keys = ["dept","course_name","slot_name","credits","course_type","instructor","instructor_email","lec","tut","lab"]
 
 n_courses_added = 0 # To keep track of the number of courses extracted.
 
@@ -44,9 +44,9 @@ def extract_fields(df):
     tmp_dict["course_type"]=str(df[f"F{n_row}"].value).strip()
     tmp_dict["instructor"]=str(df[f"G{n_row}"].value).strip()
     tmp_dict["instructor_email"]=str(df[f"H{n_row}"].value).strip()
-    tmp_dict["dh"]=str(df[f"I{n_row}"].value).strip()
+    tmp_dict["lec"]=str(df[f"I{n_row}"].value).strip()
     tmp_dict["tut"]=str(df[f"J{n_row}"].value).strip()
-    tmp_dict["practical"]=str(df[f"K{n_row}"].value).strip()
+    tmp_dict["lab"]=str(df[f"K{n_row}"].value).strip()
     return tmp_dict
 
 def extract_and_append_current_row(df):
@@ -153,8 +153,15 @@ def extract_records(excel_filename):
     save_json_data(excel_filename)
     print(f"Finished extracting the records! Bye!")
 
+
+
 if __name__ == "__main__":
     # Get the arguments passed along with the command.
-    
 
-    extract_records("Course_Schedule_2022-23-1.xlsx")
+    # Grab the filename passed in the argument.
+    excel_filename = sys.argv[1]
+    if not('.xls' in excel_filename):
+        raise Exception("Please pass in a valid excel file!")
+
+    extract_records(excel_filename)
+    
