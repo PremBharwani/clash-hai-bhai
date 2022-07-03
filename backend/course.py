@@ -1,32 +1,30 @@
 
-import re
-from utils import extract_slotdays_slottimings_from_slot_str, get_slots_list_from_timing_string
+from course_utils import get_slots_list_from_timing_string, extract_slotdays_slottimings_from_slot_str
 
 class CourseTimings: # The objects for these would hold Lecture, Tutorial & Lab timings for a particular course
     
     def __init__(self): # Constructor to initialise the object.
-        self.lectureTimingsList = {
+        self.lectureTimingsDict = {
             'M': [],
             'T': [],
             'W': [],
             'Th': [],
             'F': [],
         }
-        self.tutorialTimingsList = {
+        self.tutorialTimingsDict = {
             'M': [],
             'T': [],
             'W': [],
             'Th': [],
             'F': [],
         }
-        self.labTimingsList = {
+        self.labTimingsDict = {
             'M': [],
             'T': [],
             'W': [],
             'Th': [],
             'F': [],
         }
-        self.timingString = ""
     
 
 
@@ -53,49 +51,30 @@ class CourseTimings: # The objects for these would hold Lecture, Tutorial & Lab 
             while i<(len(slot_days)+1):
                 if i==len(slot_days): # If last day, then push the timings to the day.
                     if slotType == 'Lec':
-                        self.lectureTimingsList[curr_day].append(timingsTuple)
+                        self.lectureTimingsDict[curr_day].append(timingsTuple)
                     elif slotType == 'Tut':
-                        self.tutorialTimingsList[curr_day].append(timingsTuple)
+                        self.tutorialTimingsDict[curr_day].append(timingsTuple)
                     elif slotType == 'Lab':
-                        self.labTimingsList[curr_day].append(timingsTuple)
+                        self.labTimingsDict[curr_day].append(timingsTuple)
                     curr_day = ""
                     break
                 if (slot_days[i].isupper() and curr_day!="") :
                     # Push the timings to the day.
                     if slotType == 'Lec':
-                        self.lectureTimingsList[curr_day].append(timingsTuple)
+                        self.lectureTimingsDict[curr_day].append(timingsTuple)
                     elif slotType == 'Tut':
-                        self.tutorialTimingsList[curr_day].append(timingsTuple)
+                        self.tutorialTimingsDict[curr_day].append(timingsTuple)
                     elif slotType == 'Lab':
-                        self.labTimingsList[curr_day].append(timingsTuple)
+                        self.labTimingsDict[curr_day].append(timingsTuple)
                     curr_day = ""
                     i-=1
                 else:
                     curr_day+=slot_days[i]
                 i+=1
 
-            # day = "" + slot_days[0]
-            # for i in range(1, len(slot_days)):
-            #     if slot_days[i].isupper():
-            #         # Push this day's timings
-            #         if slotType == 'Lec':
-            #             self.lectureTimingsList[day].append(timingsTuple)
-            #         elif slotType == 'Tut':
-            #             self.tutorialTimingsList[day].append(timingsTuple)
-            #         elif slotType == 'Lab':
-            #             self.labTimingsList[day].append(timingsTuple)
-            #         day=slot_days[i]
-            #     else:
-            #         day+=slot_days[i]
-
-            # if not len(day)==0:
-            #     # Push this day's timings
-            #     self.lectureTimingsList[day].append(timingsTuple)
-
-        self.timingString = timingString
 
     def print_timings(self):
-        buildStr = f"Lec : {str(self.lectureTimingsList)}\nTut : {str(self.tutorialTimingsList)}\nLab : {str(self.labTimingsList)}"
+        buildStr = f"Lec : {str(self.lectureTimingsDict)}\nTut : {str(self.tutorialTimingsDict)}\nLab : {str(self.labTimingsDict)}"
         print(buildStr)
 
 
@@ -115,14 +94,14 @@ if __name__ == "__main__":
 
     # ct1 = CourseTimings()
     # ct1.parse_timings("TWF 08:00-09:00, M 07:00-09:00", 'Lec')
-    # print(ct1.lectureTimingsList)
+    # print(ct1.lectureTimingsDict)
 
     # print("\n\n\nCourse Test")
-    course1 = Course("CSE-101", timingsTut="M 15:00-16:15" )
+    course1 = Course("CSE-101", timingsTut="M 15:00-16:15" , timingsLab="MTWThF 14:00-17:00")
     print(course1.name)
     course1.timings.print_timings()
     print()
-    course2 = Course("CSE-102", timingsLab="WTh 12:00-13:15, F 15:30-16:15" )
+    course2 = Course("CSE-102", timingsLec="M 12:00-15:00", timingsLab="MTWThF 14:00-17:00" )
     print(course2.name)
     course2.timings.print_timings()
     print("------------------------------------")
