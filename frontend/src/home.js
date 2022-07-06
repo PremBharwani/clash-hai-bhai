@@ -3,6 +3,7 @@ import DeptInf from './Components/DeptInf'
 import PresetCourses from './Components/PresetCourses'
 import PossibleCourses from './Components/PossibleCourses' 
 import Course from './classes/Course'
+import './index.css'
 
 export class home extends Component {
 
@@ -108,12 +109,14 @@ export class home extends Component {
   render() {
     return (
       <div>
-          <h1>Clash</h1>
-          <DeptInf requestTemplate = {this.requestTemplate} />
-          <h3>Courses in Template</h3>
-          <PresetCourses preCourse = {this.state.preCourses} removeCourse = {this.removeCourse} />
-          <h3>Courses you can Take</h3>
-          <PossibleCourses possCourse = {this.state.possCourses} addCourse = {this.addCourse} />
+          <h1>CLASH HAI BHAI!</h1>
+          <div className='outerB'>
+            <DeptInf requestTemplate = {this.requestTemplate} />
+            <div className='flout'>
+              <PresetCourses preCourse = {this.state.preCourses} removeCourse = {this.removeCourse} />
+              <PossibleCourses possCourse = {this.state.possCourses} addCourse = {this.addCourse} />
+            </div>
+          </div>
       </div>
     )
   }

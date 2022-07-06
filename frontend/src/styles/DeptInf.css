@@ -1,0 +1,37 @@
+
+
+.outCont
+{
+    background: #1A1B1E;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+}
+
+.outCont select{
+    background: #202125;
+    border-radius: 45px;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.outCont button
+{
+    background: linear-gradient(93.47deg, #5F62F1 16.49%, #8060F0 86.65%);
+    border-radius: 45px;
+    border: none;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: white;
+}

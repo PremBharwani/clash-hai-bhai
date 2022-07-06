@@ -1,0 +1,21 @@
+.houtselL
+{
+    background: #1A1B1E;
+    border-radius: 15px;
+    width: 100%;
+    margin-top: 30px;
+    margin-right: 15px;
+    overflow: scroll;
+}
+
+.houtselL :last-child
+{
+    margin-bottom: 20px;
+}
+
+.houtselL h3
+{
+    color: white;
+    font-weight: normal;
+    font-size: 25px;
+}

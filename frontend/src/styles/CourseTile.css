@@ -1,0 +1,31 @@
+
+.courseT
+{
+    background: #202125;
+    border-radius: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.courseT h2{
+    color: white;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.courseT h2 button
+{
+    background: linear-gradient(93.47deg, #5F62F1 16.49%, #8060F0 86.65%);
+    border-radius: 45px;
+    border: none;
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 0 !important;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "../styles/DeptInf.css"
 
 export class DeptInf extends Component {
 
@@ -32,7 +33,7 @@ export class DeptInf extends Component {
 
   render() {
     return (
-      <div>
+      <div className='outCont'>
           <select name='dept' placeholder='Department' onChange={this.DeptHandler} value = {this.state.dept}>
               <option value="" key="NONE">Select</option>
               <option value="MTH" key="MTH">MTH</option>
@@ -47,7 +48,7 @@ export class DeptInf extends Component {
               <option value="3" key="Third">Third</option>
           </select>
 
-          <input type="submit" value="Submit" onClick={this.onSubmit} />
+          <button onClick={this.onSubmit}>Submit</button>
       </div>
     )
   }

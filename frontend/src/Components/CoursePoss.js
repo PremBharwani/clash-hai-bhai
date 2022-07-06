@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "../styles/CourseTile.css"
 
 export class CoursePoss extends Component {
     constructor(props) {
@@ -16,11 +17,11 @@ export class CoursePoss extends Component {
       render() {
     
         return (
-          <div>
-              <h3>
+          <div className='courseT'>
+              <h2>
                   {this.state.name}
                   <button onClick={this.addHandler}>Add</button>
-              </h3>
+              </h2>
           </div>
         )
       }
