@@ -10,11 +10,57 @@ export class home extends Component {
     super(props)
   
     this.state = {
+       preCourses : [],
+       possCourses : [],
+       dept : "",
+       sem : 1
+    }
+    
+    this.requestTemplate = this.requestTemplate.bind(this)
+  }
+
+  requestTemplate(dep, semes){
+    //Api request
+    const st = {
        preCourses : [new Course("MTH101", 1, 1), new Course("PHY103", 1, 1)],
        possCourses : [new Course("ESO207", 1, 1), new Course("PHY313", 1, 1)],
        dept : "PHY",
+       sem : "1"
+    }
+
+
+    const rt = {
+       preCourses : [new Course("PHY101", 1, 1), new Course("PSY103", 1, 1)],
+       possCourses : [new Course("ESK207", 1, 1), new Course("PSO313", 1, 1)],
+       dept : "MTH",
+       sem : "1"
+    }
+
+    let iter = [rt, st];
+    iter.forEach((obj) => {
+
+      if(obj.dept === dep && obj.sem === semes)
+      {
+        this.setState(obj);
+      }
+    })
+  }
+
+  async requestCourses()
+  {
+    //Api request
+    const st = await {
+       preCourses : [],
+       possCourses : [new Course("ESO207", 1, 1), new Course("PHY313", 1, 1), new Course("MTH101", 1, 1), new Course("PHY103", 1, 1)],
+       dept : "PHY",
        sem : 1
     }
+    this.setState(st);
+  }
+
+  componentDidMount()
+  {
+    this.requestCourses();
   }
 
   removeCourse = (name) => {
@@ -24,8 +70,7 @@ export class home extends Component {
       preCourses : this.state.preCourses.filter((val,ind,arr) => {
         if (val.name !== name)
         {
-          return val
-          return
+          return val;
         }
         else {
           course = val
@@ -48,6 +93,7 @@ export class home extends Component {
         }
         else {
           course = val
+          return null;
         }
       } ),
 
@@ -63,7 +109,7 @@ export class home extends Component {
     return (
       <div>
           <h1>Clash</h1>
-          <DeptInf />
+          <DeptInf requestTemplate = {this.requestTemplate} />
           <h3>Courses in Template</h3>
           <PresetCourses preCourse = {this.state.preCourses} removeCourse = {this.removeCourse} />
           <h3>Courses you can Take</h3>

@@ -26,7 +26,7 @@ export class DeptInf extends Component {
     }
 
     onSubmit = (e) => {
-        
+        this.props.requestTemplate(this.state.dept, this.state.sem);
     }
 
 
@@ -34,15 +34,17 @@ export class DeptInf extends Component {
     return (
       <div>
           <select name='dept' placeholder='Department' onChange={this.DeptHandler} value = {this.state.dept}>
+              <option value="" key="NONE">Select</option>
               <option value="MTH" key="MTH">MTH</option>
               <option value="PHY" key="PHY">PHY</option>
               <option value="EE" key="EE">EE</option>
           </select>
 
           <select name='sem' placeholder='Department' onChange={this.SemHandler} value = {this.state.sem}>
-              <option value="First" key="First">First</option>
-              <option value="Second" key="Second">Second</option>
-              <option value="Third" key="Third">Third</option>
+              <option value="0" key="Zero">Select</option>
+              <option value="1" key="First">First</option>
+              <option value="2" key="Second">Second</option>
+              <option value="3" key="Third">Third</option>
           </select>
 
           <input type="submit" value="Submit" onClick={this.onSubmit} />
