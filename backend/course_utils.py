@@ -1,4 +1,5 @@
 import re
+import json
 
 ##### Utils for course.py #####
 def get_slots_list_from_timing_string(timing_str): 
@@ -25,3 +26,5 @@ def extract_slotdays_slottimings_from_slot_str(slot_str): \
     return (slot_days, timingsTuple)
 
 ###############################
+
+

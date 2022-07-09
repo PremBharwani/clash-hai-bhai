@@ -1,5 +1,5 @@
 import copy
-from course import Course
+from course import Course, CourseTimings
 
 def append_timings_for_particular_day(day_timings1, day_timings2): 
     # Takes in two lists of tuples representing timings, and returns a list of tuples.
@@ -48,6 +48,20 @@ def merge_lect_and_tut_timings_for_a_course(course):
         remove_overlaps_from_list_of_timing_tuples(merged_timings[day_key])
 
     return merged_timings
+
+
+
+def merge_courses_and_get_merged_timings(course1, course2):
+    lec_tut_course1 = merge_lect_and_tut_timings_for_a_course(course1)
+    lec_tut_course2 = merge_lect_and_tut_timings_for_a_course(course2)
+
+    for day_key in lec_tut_course1:
+        lec_tut_course1[day_key] = append_timings_for_particular_day(lec_tut_course1[day_key], lec_tut_course2[day_key])
+
+    course_timings = CourseTimings()
+    course_timings.lectureTimingsDict = lec_tut_course1
+    return course_timings
+
 
 def find_clash_among_timetuples(timeTuple1, timeTuple2): # Time Tuple : (starttime, endtime)
     # Returns the tuple of overlapping values
@@ -119,7 +133,7 @@ def check_if_current_course_can_be_added_to_template(current_template, course_to
     #? current_template : CourseTimings class : Represents all the time slots occupied by the courses existing in the current template. 
     #? course_to_add : Course class : Represents the course which we have to check if it can be added to the current template.
 
-    # Returns an empty list  if the course_to_add can be included in the current_template without any clashes.
+    # Returns None if the course_to_add can be included in the current_template without any clashes.
     # Returns the clashing timings if the course_to_add clashes with the course.
     
     dummy_course = Course('current_template')

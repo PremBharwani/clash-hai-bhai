@@ -96,17 +96,20 @@ def extract_course_code_and_append():
     listOfCourses = json_data['courses']
     for i in range(len(listOfCourses)):
         courseName = listOfCourses[i]['course_name']
+        
+        # Reverse courseName string and save it as courseName
+        courseName = courseName[::-1]
         try:
-            m = re.match(r"[a-zA-Z0-9\-&.,:\s]*\((?P<course_code>[A-Z0-9\s]+)\)", courseName)
+            m = re.match(r"[^'']*\)(?P<course_code>[A-Z0-9\s]+)\([^'']*", courseName)
             courseCode = str(m.groupdict()['course_code'])
             courseCode = courseCode.replace(" ","")
+            courseCode = courseCode[::-1]
         except:
-            print("ERROR : Couldn't parse course code for course : ",courseName)
-            courseCode = "PARSING_ERROR"
+            print("ERROR : Couldn't parse course code for course : ",courseName[::-1])
+            courseCode = "COURSE_CODE_PARSING_ERROR"
 
         listOfCourses[i]['course_code'] = courseCode
     json_data["courses"] = listOfCourses
-
 
 def extract_data_from_current_sheet(wb, sheet_name):
     global n_row

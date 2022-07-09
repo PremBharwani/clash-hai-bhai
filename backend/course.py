@@ -26,8 +26,6 @@ class CourseTimings: # The objects for these would hold Lecture, Tutorial & Lab 
             'F': [],
         }
     
-
-
     # This method takes in a string and returns a dictionary of with 5 keys
     # each representing a week day. 
     # Value corresponding to each key is timings for each day of the week
