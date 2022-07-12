@@ -30,7 +30,10 @@ def serve_non_clashing_courses(current_course_codes_list, dept_to_choose_from):
 
     return return_dictionary_object
 
-
+def get_course_template_json():
+    with open('./../data/template.json') as f:
+        data = json.load(f)
+        return data
 
 
 if __name__ == "__main__":

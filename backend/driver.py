@@ -171,41 +171,13 @@ if __name__ == "__main__":
 
     ################## SHOWING POSSIBLE COURSES TO ADD GIVEN THE CURRENT TEMPLATE #################
 
-    # list_of_course_codes = ['CE311A','CE331A','CE341A','CE351A','CE361A','CE371A'] # Works fine. # Prem's Template.
-    
-
-    # list_of_course_codes = [
-    #     'CS300A',
-    #     'CS345A',
-    #     'CS340A',
-    #     'CS330A',
-    #     'CS771A', 'EE370A'
-    # ] # Tanwar  
-
-
-    # list_of_course_codes = [
-    #     'PHY315A',
-    #     'PHY421A',
-    #     'PHY401A',
-    #     'ESO213A',
-    #     'CHM696A'
-    # ]
-
-
-    list_of_course_codes = [
-
-        'CHM696A',
-        'PHY315A',
-        'PHY401A',
-        'PHY421A',
-        'PHY431A'
-
-    ]  #PRABH
-
+    list_of_course_codes = ['CE311A','CE331A','CE341A','CE351A','CE361A','CE371A'] # Works fine. # Prem's Template.
 
     curr_template = construct_current_template(list_of_course_codes)
-
-    print_course_names(show_possible_courses_to_add(curr_template))
+    print("Current template timings: ")
+    curr_template.print_timings()
+    print("\n\n")
+    # print_course_names(show_possible_courses_to_add(curr_template))
 
     ####################################################################
 

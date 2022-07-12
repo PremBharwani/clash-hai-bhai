@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 
 
-from flask_utils import serve_courses_json_as_dictionary, serve_non_clashing_courses
+from flask_utils import serve_courses_json_as_dictionary, serve_non_clashing_courses, get_course_template_json
 
 app = Flask(__name__)
 
@@ -36,7 +36,11 @@ def non_clashing_courses():
     
     return jsonify(possible_courses_list)
 
-
+@app.route('/get_course_template', methods=['GET'])
+def get_course_template():
+    
+    json_obj = get_course_template_json()
+    return jsonify(json_obj)
 
 if __name__=="__main__":
     app.run(debug=True)
