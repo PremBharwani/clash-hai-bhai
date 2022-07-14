@@ -40,29 +40,6 @@ export class home extends Component {
       })
       this.requestCourses()
     })
-
-    const st = {
-      preCourses: [new Course("MTH101", "Maths", 1, 1), new Course("PHY103", "Physics", 1, 1)],
-      possCourses: [new Course("ESO207", 1, 1), new Course("PHY313", 1, 1)],
-      dept: "PHY",
-      sem: "1"
-    }
-
-
-    const rt = {
-      preCourses: [new Course("PHY101", "Physics", 1, 1), new Course("PSY103", "Psycho", 1, 1)],
-      possCourses: [new Course("ESK207", 1, 1), new Course("PSO313", 1, 1)],
-      dept: "MTH",
-      sem: "1"
-    }
-
-    let iter = [rt, st];
-    iter.forEach((obj) => {
-
-      if (obj.dept === dep && obj.sem === semes) {
-        this.setState(obj);
-      }
-    })
   }
 
   async requestCourses() {
