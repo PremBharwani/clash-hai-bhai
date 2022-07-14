@@ -11,6 +11,7 @@ frontend/coverage
 
 # production
 frontend/build
+frontend/.env
 
 # misc
 frontend/.DS_Store
@@ -23,3 +24,5 @@ frontend/.vscode/
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
+
+backend/env/

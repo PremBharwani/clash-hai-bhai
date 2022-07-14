@@ -108,7 +108,7 @@ def show_possible_courses_to_add(current_template, dept_to_choose_from = None):
     possible_courses_codes = []
 
     courses = get_all_courses_as_json()
-    if dept_to_choose_from == None:
+    if dept_to_choose_from == None or dept_to_choose_from == "":
         dept_courses = courses
     else:
         dept_courses = [x for x in courses if x['dept']==dept_to_choose_from ]

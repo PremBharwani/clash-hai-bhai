@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 
 from flask_utils import serve_courses_json_as_dictionary, serve_non_clashing_courses, get_course_template_json
 
 app = Flask(__name__)
+
+CORS(app)
 
 @app.route('/test')
 def test():
@@ -21,9 +24,9 @@ def get_courses_offered():
 #     ],
 #     "dept_to_choose_from":"CSE"
 # }
-@app.route('/non_clashing_courses', methods=['GET'])
+@app.route('/non_clashing_courses', methods=['GET','POST'])
 def non_clashing_courses():
-    
+    print(request.data)
     rjson = request.json # Extracting the request JSON.
     course_codes_list = rjson['currently_selected_courses'] # Extracting the course codes from the request JSON.
     dept_to_choose_from = rjson.get('dept_to_choose_from', None) # Extracting the department from the request JSON.

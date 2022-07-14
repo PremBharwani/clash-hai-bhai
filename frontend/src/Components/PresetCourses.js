@@ -6,13 +6,13 @@ export class PresetCourses extends Component {
   render() {
     return (
       <div className='houtselL'>
-          <h3>Courses in Template</h3>
+        <h3>Courses in Template</h3>
 
-          {
-            this.props.preCourse.map(elem => {
-              return <CoursePreset name={elem.name} key={elem.name} removeCourse = {this.props.removeCourse} />
-            })
-          }
+        {
+          this.props.preCourse.map((elem, index) => {
+            return <CoursePreset name={elem.name} key={elem.code + elem.slot} removeCourse={this.props.removeCourse} />
+          })
+        }
       </div>
     )
   }

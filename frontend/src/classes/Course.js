@@ -1,15 +1,15 @@
 
 
-export class Course
-{
-    constructor(name, slot, credits)
-    {
-        if(!arguments.length) {
+export class Course {
+    constructor(code, name, slot, credits) {
+        if (!arguments.length) {
+            this.code = ""
             this.name = ""
-            this.slot = 0
-            this.credits = 0
+            this.slot = ""
+            this.credits = ""
         }
         else {
+            this.code = code
             this.name = name
             this.slot = slot
             this.credits = credits
