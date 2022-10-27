@@ -22,6 +22,16 @@ function get_template(course, semester){
     return templates[course][semester]
 }
 
+function get_all_courses_by_department(department){
+    eligible_courses = []
+    for (let i = 0; i < myJSON.length; i++){
+        // console.log(myJSON[i])
+        if (myJSON[i].dept == department){
+            eligible_courses.push(myJSON[i].course_code)
+        }
+    }
+    return eligible_courses
+}
 // Returns ALL slots occupied in the semester
 function get_dept_time(course, semester){
     var template = get_template(course, semester)
@@ -47,66 +57,74 @@ function merge_timings(course_1, course_2){
 }
 
 
-// Returns all courses a studeny
-function vanilla_compare(dept, semester, course){
-    var dept_times = get_dept_time(dept, semester)
+// Returns all courses a student, given current department and semester
+function return_bad_intervals(dept_times, course){
+    // var dept_times = get_dept_time(dept, semester)
     var course_times = get_course_timings(course)
     var bad_intervals = []
     for (let i = 0; i < course_times.length; i++){
         for (let j = 0; j < dept_times.length; j++){
-            if (check_intevrals_clash(course_times[i], dept_times[j])){
+            if(course_times[i][0] >= dept_times[j][0]){
+                if (course_times[i][0] <= dept_times[j][1]){
+                    bad_intervals.push([course_times[i], dept_times[j]])
+                    break;
+                }
+            }
+            else if(course_times[i][1] >= dept_times[j][0]){
+            if (course_times[i][1] <= dept_times[j][1]){
                 bad_intervals.push([course_times[i], dept_times[j]])
+                break;
             }
         }
+        }
     }
+    return bad_intervals
 }
 
 
 
-////LMAOOOOO
-function check_clash(template, course) {
-    var clash = false;
-    template.sort((a, b) => a[0] - b[0]);
-    course.sort((a, b) => a[0] - b[0]);
-   console.log(course);
-   console.log(template)
-    
-    let l = course.length;
-    let i = 0;
-    //console.log(template);
-    // console.log(time_interval[0]+" ts");
-    // console.log(+time_interval[1]+" te");
-    for (let time_interval in template) {
-      if (i >= l) break;
-      else if (template[time_interval][0] >= course[i][1]) {
-       // console.log(i + " 1\n");
-        i++;
-      } else if (template[time_interval][1] >= course[i][0]) {
-       // console.log(i + " 2\n");
-        clash = true;
-        break;
-      } else {
-        i++;
-      }
+//Returns clashes
+function check_clashes(dept_times, course){
+    var bad_intervals = return_bad_intervals(dept_times, course)
+    if (bad_intervals.length == 0){
+        return false
     }
-    return clash;
-  }
+    else{
+        return true
+    }
+}
+
+//returns all possible courses from the selected department that do not
+//clash
+function get_eligible_courses(dept_timings, target_dept){
+    target_courses = get_all_courses_by_department(target_dept)
+    good_courses = []
+    for (let i = 0; i < target_courses.length; i++){
+        // var dept_timings = get_dept_time(dept, semester)
+        if (!check_clashes(dept_timings, target_courses[i])){
+            good_courses.push(target_courses[i])
+        }
+    }
+    return good_courses
+}
 
 
-
-// check_clash(temp, )
 //declaration
 myJSON = course_data.courses
 templates = template_data
 
 
-var temp = get_dept_time("EE", "3")
-// console.log(temp)
-var mth_times = get_course_timings("MTH302A")
-// console.log(mth_times)
-var clash = check_clash(temp, mth_times)
-console.log(clash)
 
+//TESTING
+// var temp = get_dept_time("EE", "3")
+// console.log(temp)
+// var mth_times = get_course_timings("MTH201A")
+// console.log(mth_times)
+// var clash = check_clash(temp, mth_times)
+// console.log(clash)
+console.log(get_all_courses_by_department("CSE"))
+console.log(get_eligible_courses(get_dept_time("EE", "3"), "MTH"))
+// console.log(check_clashes("EE", "3", "MTH201A"))
 //testing
 // console.log(get_course_timings("ESO207A"))
 // // console.log(get_template("BSBE", "2"))

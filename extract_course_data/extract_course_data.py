@@ -162,7 +162,8 @@ if __name__ == "__main__":
     # Get the arguments passed along with the command.
 
     # Grab the filename passed in the argument.
-    excel_filename = sys.argv[1]
+    excel_filename = sys.argv[2]
+    print(excel_filename)
     if not('.xls' in excel_filename):
         raise Exception("Please pass in a valid excel file!")
 
