@@ -1,45 +1,66 @@
-// const api_url = 
-//     'https://theslytherin.gitlab.io/assets/updated.json';
-
-
-
-// Takes ID -> ESO207
-// Returns a json dictionary {M:[Start, Stop], T:[Start, Stop]} et cetera.
+/*
+Utility function. It returns the array of intervals a course occupies in a week.
+Usage:
+get_course_timings(course_code)
+Example:
+get_course_timings("ESO207A")
+Output: [['3400', '3500'], ['5800', '5900'], ['10600', '10700']]
+*/
 function get_course_timings(id){
-        for (let i = 0; i < myJSON.length; i++){
-            // console.log(courses_Data.courses[i].course_code)
-            if (myJSON[i].course_code == id){
-                // console.log(myJSON[i])
-                return myJSON[i].timings_since_epoch
+        for (let i = 0; i < depts.length; i++){
+            // console.log(depts[i])
+            // console.log(myJSON[depts[i]].length)
+            for (let j = 0; j < myJSON[depts[i]].length; j++){
+                // console.log(myJSON[depts[i]][j].course_code)
+                if (myJSON[depts[i]][j].course_code == id){
+                    // console.log(myJSON[i])
+                    return myJSON[depts[i]][j].timings_since_epoch
+                }
             }
         }
 
 }
 
-// Returns an array of course codes. Input course name and semester.
-// No MTH in the template :(
-function get_template(course, semester){
-    return templates[course][semester]
+/*
+Utility function. It returns the template of a department. No MTH :(.
+Usage:
+get_template(department, semester)
+Example:
+get_template("EE", "4")
+Output: ['EE210A', 'EE250A', 'TA202A']
+*/
+function get_template(dept, semester){
+    return templates[dept][semester]
 }
 
+/*
+Utility function. It returns a list of JSON objects, The JSON objects corresspond
+to all courses offered by a particular department.
+Usage:
+get_all_courses_by_department(department)
+Example:
+get_template("EE")
+Output: A big-ass list of big ass dictionaries. 
+*/
 function get_all_courses_by_department(department){
-    eligible_courses = []
-    for (let i = 0; i < myJSON.length; i++){
-        // console.log(myJSON[i])
-        if (myJSON[i].dept == department){
-            eligible_courses.push(myJSON[i].course_code)
-        }
-    }
-    return eligible_courses
+    return myJSON[department]
 }
-// Returns ALL slots occupied in the semester
-function get_dept_time(course, semester){
-    var template = get_template(course, semester)
-    console.log(template)
+
+
+/*
+Utility function. It returns a list of time intervals, basically
+the union of time intervals of courses.
+Usage:
+merge_course_times(courses)
+Example:
+merge_course_times(['EE210A', 'TA202A'])
+Output: [['1000', '1100'], ['5800', '5900'], ['10600', '10700'], ['3400', '3500'], ['3200', '3300']]
+*/
+function merge_course_times(courses){
     var time_intervals = []
-    for (let i = 0; i < template.length; i++){
-        console.log(template[i])
-        var course_deets = get_course_timings(template[i])
+    for (let i = 0; i < courses.length; i++){
+        // console.log(template[i])
+        var course_deets = get_course_timings(courses[i])
         for (let j = 0; j < course_deets.length; j++){
             time_intervals.push(course_deets[j])
         }
@@ -49,7 +70,8 @@ function get_dept_time(course, semester){
 }
 
 
-//Returns an array of slots occupied by course_1, course_2
+//Returns an array of slots occupied by course_1, course_2.
+// This function is redundant. 
 function merge_timings(course_1, course_2){
     var course_one_array = get_course_timings(course_1)
     var course_two_array = get_course_timings(course_2)
@@ -57,7 +79,16 @@ function merge_timings(course_1, course_2){
 }
 
 
-// Returns all courses a student, given current department and semester
+/*
+Utility function. Returns the first clashing interval. I was forced
+to break.
+Usage:
+return_bad_intervals(dept_times, course), where dept_times is an array of 
+intervals.
+Example:
+return_bad_intervals(merge_course_times(['EE210A', 'TA202A']), "ESO207A")
+Output: [['1000', '1100']]
+*/
 function return_bad_intervals(dept_times, course){
     // var dept_times = get_dept_time(dept, semester)
     var course_times = get_course_timings(course)
@@ -83,7 +114,17 @@ function return_bad_intervals(dept_times, course){
 
 
 
-//Returns clashes
+
+/*
+Utility function. Returns if the given course clashes with the courses one is
+taking in the semester.
+Usage:
+check_clashes(dept_times, course), where dept_times is an array of 
+intervals.
+Example:
+check_clashes(merge_course_times(['EE210A', 'TA202A']), "ESO207A")
+Output: true
+*/
 function check_clashes(dept_times, course){
     var bad_intervals = return_bad_intervals(dept_times, course)
     if (bad_intervals.length == 0){
@@ -94,42 +135,98 @@ function check_clashes(dept_times, course){
     }
 }
 
-//returns all possible courses from the selected department that do not
-//clash
+/*
+Utility function. Returns all courses from the chosen department
+a person can take.
+Usage:
+get_eligilble_courses(dept_times, target_dept), where dept_times is an array of 
+intervals.
+Example:
+get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
+Output: 'CGS402A', 'CGS612A', 'CGS621A', 'CGS641A', 'CGS691A', 'CGS698D', 'CGS698E', 'CGS799', 'CGS899']
+*/
 function get_eligible_courses(dept_timings, target_dept){
     target_courses = get_all_courses_by_department(target_dept)
-    good_courses = []
-    for (let i = 0; i < target_courses.length; i++){
-        // var dept_timings = get_dept_time(dept, semester)
-        if (!check_clashes(dept_timings, target_courses[i])){
-            good_courses.push(target_courses[i])
+    var len = target_courses.length
+    // console.log(len)
+    var good_courses = []
+    for (let i = 0; i < len; i++){
+        var course_coode = target_courses[i]["course_code"]
+        // console.log(course_coode)
+        var z = check_clashes(dept_timings, course_coode)
+        // var bad = return_bad_intervals(dept_timings, target_dept[i].course_code)
+                // console.log(bad)
+        if (z == false){
+            good_courses.push(course_coode)
         }
     }
     return good_courses
 }
 
 
+/*
+Main function. Returns course objects corresponding all courses from the chosen department
+a person can take.
+Usage:
+get_eligilble_courses(dept_times, target_dept), where dept_times is an array of 
+intervals.
+Example:
+get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
+Output: [[{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]]
+course_code: "MSE202A"
+course_name: "RATE PROCESSES(MSE202A)"
+course_type: "4-1-1 PRF,DC / REGULAR"
+credits: "3-1-0-0(11)"
+dept: "MSE"
+instructor: "DIPAK  MAZUMDAR (I)"
+instuctor_email: "dipak@iitk.ac.in (I)"
+lab: ""
+lec: "MWF 10:00-11:00"
+n_course: "439"
+pre_requisites: ""
+timings: {M: Array(2), W: Array(2), F: Array(2), T: Array(2)}
+timings_since_epoch: (4) [Array(2), Array(2), Array(2), Array(2)]
+tut: "T 10:00-11:00"
+
+*/
+function get_eligible_json(dept_timings, target_dept){
+    var good_courses = get_eligible_courses(dept_timings, target_dept)
+    var list_of_objects = []
+    target_courses = get_all_courses_by_department(target_dept)
+
+    for (let i = 0; i < good_courses.length; i++){
+        for (let j = 0; j < target_courses.length; j++){
+            if (target_courses[j].course_code == good_courses[i]){
+                list_of_objects.push(target_courses[j])
+            }
+        }
+    }
+    return list_of_objects
+}
 //declaration
-myJSON = course_data.courses
+depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
+myJSON = course_data
 templates = template_data
 
 
 
 //TESTING
-// var temp = get_dept_time("EE", "3")
+// var temp = get_dept_time("4", "3")
 // console.log(temp)
-// var mth_times = get_course_timings("MTH201A")
+// var mth_times = get_course_timings("MTH204A")
 // console.log(mth_times)
 // var clash = check_clash(temp, mth_times)
 // console.log(clash)
-console.log(get_all_courses_by_department("CSE"))
-console.log(get_eligible_courses(get_dept_time("EE", "3"), "MTH"))
-// console.log(check_clashes("EE", "3", "MTH201A"))
+// console.log(get_all_courses_by_department("CSE"))
+// console.log(get_eligible_json(get_dept_time("EE", "4"), "MTH"))
+// console.log(check_clashes(get_dept_time("EE", "4"), "MTH204A"))
 //testing
-// console.log(get_course_timings("ESO207A"))
-// // console.log(get_template("BSBE", "2"))
-// console.log(get_dept_time("BSBE", "5"))
+console.log(get_course_timings("ESO207A"))
+// console.log(get_template("BSBE", "4"))
+// console.log(get_dept_time("EE", "4"))
 // console.log(merge_timings("ESO207A", "MTH302A"))
+// console.log(merge_course_times(get_template("EE", "4")))
+// console.log(return_bad_intervals(get_dept_time("EE", "4"), "ESO207A"))
 
 
 // getapi(api_url)

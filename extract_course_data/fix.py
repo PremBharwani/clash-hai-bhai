@@ -8,7 +8,7 @@ filename = "output.json"
 f = open(filename, 'r')
 dict = json.load(f)
 # print(len(dict))
-
+print(dict.keys())
 def prettify_lec(i : int, dept : str):
     if  dict[dept][i]['tut'] != "None":
         time_string = dict[dept][i]['lec'] + ' '  +dict[dept][i]['tut']
