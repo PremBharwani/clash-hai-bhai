@@ -4,16 +4,16 @@ import json
 from operator import le
 from time import time
 import copy
-filename = "nolec.json"
+filename = "output.json"
 f = open(filename, 'r')
 dict = json.load(f)
 # print(len(dict))
 
-def prettify_lec(i : int):
-    if  dict["courses"][i]['tut'] != "None":
-        time_string = dict["courses"][i]['lec'] + ' '  +dict["courses"][i]['tut']
+def prettify_lec(i : int, dept : str):
+    if  dict[dept][i]['tut'] != "None":
+        time_string = dict[dept][i]['lec'] + ' '  +dict[dept][i]['tut']
     else:
-        time_string = dict["courses"][i]['lec']
+        time_string = dict[dept][i]['lec']
     # print(time_string)
     lst = list(time_string)
     for i in lst:
@@ -49,8 +49,8 @@ def prettify_lec(i : int):
     return final
 
 
-def get_dict(i):
-    timestring = prettify_lec(i)
+def get_dict(i : int, dept : str):
+    timestring = prettify_lec(i, dept)
     if (timestring == ['None']):
         return {}
     dates_indices = []
@@ -81,20 +81,13 @@ def next_date(i : int, dates_indices):
         if dates_indices[ctr] > i:
             return ctr
 
-
-# for i in range(495,496):
-#     print(prettify_lec(i))
-
-new_dict = {"courses": []}
-for i in range(len(dict["courses"])):
-    x = get_dict(i)
-    # print(i)
-    new_dict["courses"].append((dict["courses"][i]))
-    new_dict["courses"][i]["timings"] = x
-
-
-outfile = "courses_updated.json"
-
-f_o = open(outfile, "w")
-json.dump(new_dict, f_o)
+def get_fixed_json(path):
+    new_dict = {}
+    for dept in dict:
+        new_dict[dept] = dict[dept]
+        for i in range(len(dict[dept])):
+            new_dict[dept][i]["timings"] = get_dict(i, dept)
+    outfile = path
+    f_o = open(outfile, "w")
+    json.dump(new_dict, f_o)
     
