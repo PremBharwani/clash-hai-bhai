@@ -39,7 +39,7 @@ Output: course_code: "ESO207A"
 ​n_course: "215"
 ​pre_requisites: "(ESC101A)"
 */
-function get_course_details(id){
+export function get_course_details(id){
     for (let i = 0; i < depts.length; i++){
         // console.log(depts[i])
         // console.log(myJSON[depts[i]].length)
@@ -73,7 +73,7 @@ Example:
 get_template("EE")
 Output: A big-ass list of big ass dictionaries. 
 */
-function get_all_courses_by_department(department){
+export function get_all_courses_by_department(department){
     return myJSON[department]
 }
 
@@ -165,10 +165,26 @@ Usage:
 get_eligilble_courses(current_timings, target_dept), where current_timings is an array of 
 intervals.
 Example:
-get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
-Output: 'CGS402A', 'CGS612A', 'CGS621A', 'CGS641A', 'CGS691A', 'CGS698D', 'CGS698E', 'CGS799', 'CGS899']
+get_eligible_courses(['EE210A', 'TA202A'], "CGS")
+Output: 
+0: Object { n_course: "110", dept: "CGS", course_name: "APPLIED COGNITIVE SCIENCE(CGS402A)", … }
+​
+1: Object { n_course: "111", dept: "CGS", course_name: "EYE-TRACKING AND VR AS TOOLS IN COGNITIVE SCIENCE(CGS612A)", … }
+​
+2: Object { n_course: "112", dept: "CGS", course_name: "INTRODUCTION TO PSYCHOLINGUISTICS(CGS621A)", … }
+​
+3: Object { n_course: "113", dept: "CGS", course_name: "TOPICS IN TRANSLATIONAL NEUROSCIENCE(CGS641A)", … }
+​
+4: Object { n_course: "115", dept: "CGS", course_name: "NEUROBIOLOGY OF AFFECT & MOTIVATION(CGS698D)", … }
+​
+5: Object { n_course: "116", dept: "CGS", course_name: "TOPICS IN VISUAL PERCEPTION(CGS698E)", … }
+​
+6: Object { n_course: "117", dept: "CGS", course_name: "PHD THESIS(CGS799)", … }
+​
+7: Object { n_course: "118", dept: "CGS", course_name: "MS - RESEARCH THESIS(CGS899)", … }
 */
-function get_eligible_courses(current_timings, target_dept){
+export function get_eligible_courses(current_courses, target_dept){
+    var current_timings = merge_course_times(current_courses)
     target_courses = get_all_courses_by_department(target_dept)
     var len = target_courses.length
     // console.log(len)
@@ -187,45 +203,6 @@ function get_eligible_courses(current_timings, target_dept){
 }
 
 
-/*
-Main function. Returns course objects corresponding all courses from the chosen department
-a person can take.
-Usage:
-get_eligilble_courses(current_timings, target_dept), where current_timings is an array of 
-intervals.
-Example:
-get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
-Output: [[{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]]
-course_code: "MSE202A"
-course_name: "RATE PROCESSES(MSE202A)"
-course_type: "4-1-1 PRF,DC / REGULAR"
-credits: "3-1-0-0(11)"
-dept: "MSE"
-instructor: "DIPAK  MAZUMDAR (I)"
-instuctor_email: "dipak@iitk.ac.in (I)"
-lab: ""
-lec: "MWF 10:00-11:00"
-n_course: "439"
-pre_requisites: ""
-timings: {M: Array(2), W: Array(2), F: Array(2), T: Array(2)}
-timings_since_epoch: (4) [Array(2), Array(2), Array(2), Array(2)]
-tut: "T 10:00-11:00"
-
-*/
-function get_eligible_json(current_timings, target_dept){
-    var good_courses = get_eligible_courses(current_timings, target_dept)
-    var list_of_objects = []
-    target_courses = get_all_courses_by_department(target_dept)
-
-    for (let i = 0; i < good_courses.length; i++){
-        for (let j = 0; j < target_courses.length; j++){
-            if (target_courses[j].course_code == good_courses[i]){
-                list_of_objects.push(target_courses[j])
-            }
-        }
-    }
-    return list_of_objects
-}
 //declaration
 depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
 myJSON = course_data
@@ -241,7 +218,7 @@ templates = template_data
 // var clash = check_clash(temp, mth_times)
 // console.log(clash)
 // console.log(get_all_courses_by_department("CSE"))
-console.log(get_eligible_courses(merge_course_times(get_template("EE", "4")), "MTH"))
+console.log(get_eligible_courses(get_template("EE", "4"), "MTH"))
 // console.log(check_clash_between_current_schedule_and_course(merge_course_times(get_template("EE", "4")), "MTH204A"))
 //testing
 // console.log(get_course_timings("ESO207A"))

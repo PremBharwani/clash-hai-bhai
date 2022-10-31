@@ -85,5 +85,15 @@ template_data = {
         "6":["ME341A", "ME351A", "ME354A"],
         "7":["ME401A", "ME451A"],
         "8":["ME461A", "ME452"]
+    },
+    "MTH":{
+        "1":["MTH101A", "PHY103A", "CHM101A", "ESC101A", "PE101A"],
+        "2":["MTH102A", "PHY102A", "PHY101A", "LIF101A", "CHM102A", "PE102A", "TA101A"],
+        "3":["MTH302A", "MTH201A", "TA201A", "ESC201A", "COM200A"],
+        "4":["MTH204A", "MTH301A", "MSO201A", "TA202A"],
+        "5":["MTH305A", "MTH403A", "MTH399A"],
+        "6":["MTH308B", "MTH421A"],
+        "7":["MTH424A", "MTH430A"],
+        "8":[]
     }
 }
