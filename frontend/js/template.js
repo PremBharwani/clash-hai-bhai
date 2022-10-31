@@ -1,4 +1,4 @@
-template_data = {
+export const template_data = {
     "AE": {
         "1":["MTH101A", "PHY102A", "PHY101A", "TA101A", "LIF101A", "PE101A"],
         "2":["MTH102A", "PHY103A", "CHM101A", "ESC101A", "CHM102A", "PE102A"],
@@ -38,7 +38,7 @@ template_data = {
         "3":["CE241", "TA202A", "COM200A"],
         "4":["CE242", "CE262A", "CE272", "ESC201A", "TA201A"],
         "5":["CE311", "CE331A", "CE351A", "CE361A", "CE371A", "CE341A"],
-        "6":["CE352A", "CE372A", "CE382"],
+        "6":["CE352A", "CE372A", "CE382A"],
         "7":["CE441b"],
         "8":[]
     },

@@ -1,4 +1,4 @@
-course_data = {
+export const course_data = {
     "AE": [
         {
             "n_course": "1",

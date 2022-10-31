@@ -1,3 +1,6 @@
+import { course_data } from "./course_data.js"
+import { template_data } from "./template.js"
+
 /*
 Utility function. It returns the array of intervals a course occupies in a week.
 Usage:
@@ -89,6 +92,7 @@ Output: [['1000', '1100'], ['5800', '5900'], ['10600', '10700'], ['3400', '3500'
 */
 function merge_course_times(courses){
     var time_intervals = []
+    console.log(courses)
     for (let i = 0; i < courses.length; i++){
         // console.log(template[i])
         var course_deets = get_course_timings(courses[i])
@@ -178,14 +182,14 @@ Output:
 4: Object { n_course: "115", dept: "CGS", course_name: "NEUROBIOLOGY OF AFFECT & MOTIVATION(CGS698D)", … }
 ​
 5: Object { n_course: "116", dept: "CGS", course_name: "TOPICS IN VISUAL PERCEPTION(CGS698E)", … }
-​
+
 6: Object { n_course: "117", dept: "CGS", course_name: "PHD THESIS(CGS799)", … }
-​
+
 7: Object { n_course: "118", dept: "CGS", course_name: "MS - RESEARCH THESIS(CGS899)", … }
 */
 export function get_eligible_courses(current_courses, target_dept){
     var current_timings = merge_course_times(current_courses)
-    target_courses = get_all_courses_by_department(target_dept)
+    let target_courses = get_all_courses_by_department(target_dept)
     var len = target_courses.length
     // console.log(len)
     var good_courses = []
@@ -202,11 +206,16 @@ export function get_eligible_courses(current_courses, target_dept){
     return good_courses
 }
 
+function get_all_departments(){
+    for (key in myJSON){
+        console.log(key)
+    }
+}
 
 //declaration
-depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
-myJSON = course_data
-templates = template_data
+const depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
+let myJSON = course_data
+let templates = template_data
 
 
 
@@ -218,7 +227,7 @@ templates = template_data
 // var clash = check_clash(temp, mth_times)
 // console.log(clash)
 // console.log(get_all_courses_by_department("CSE"))
-console.log(get_eligible_courses(get_template("EE", "4"), "MTH"))
+// console.log(get_eligible_courses(get_template("EE", "4"), "MTH"))
 // console.log(check_clash_between_current_schedule_and_course(merge_course_times(get_template("EE", "4")), "MTH204A"))
 //testing
 // console.log(get_course_timings("ESO207A"))
@@ -228,5 +237,5 @@ console.log(get_eligible_courses(get_template("EE", "4"), "MTH"))
 // console.log(merge_course_times(get_template("EE", "4")))
 // console.log(return_bad_intervals(get_dept_time("EE", "4"), "ESO207A"))
 
-console.log(get_course_details("ESO207A"))
+// console.log(get_course_details("ESO207A"))
 // getapi(api_url)
