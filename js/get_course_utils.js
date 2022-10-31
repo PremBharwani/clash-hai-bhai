@@ -22,6 +22,37 @@ function get_course_timings(id){
 }
 
 /*
+Utility function. It returns the JSON object corresponding to the course code.
+Usage:
+get_course_timings(course_code)
+Example:
+get_course_timings("ESO207A")
+Output: course_code: "ESO207A"
+​course_name: "DATA STRUCTURE & ALGORITHM(ESO207A)"
+​course_type: "CORE 10-1 ESO/SO / REGULAR"
+​credits: "3-0-3-0(12)"
+​dept: "CSE"
+​instructor: "SANJEEV  SAXENA   (I)"
+​instuctor_email: "ssax@iitk.ac.in (I)"
+​lab: "MW 14:00-15:50"
+​lec: "TWF 10:00-11:00"
+​n_course: "215"
+​pre_requisites: "(ESC101A)"
+*/
+function get_course_details(id){
+    for (let i = 0; i < depts.length; i++){
+        // console.log(depts[i])
+        // console.log(myJSON[depts[i]].length)
+        for (let j = 0; j < myJSON[depts[i]].length; j++){
+            // console.log(myJSON[depts[i]][j].course_code)
+            if (myJSON[depts[i]][j].course_code == id){
+                // console.log(myJSON[i])
+                return myJSON[depts[i]][j]
+        }
+    }
+}
+}
+/*
 Utility function. It returns the template of a department. No MTH :(.
 Usage:
 get_template(department, semester)
@@ -70,41 +101,33 @@ function merge_course_times(courses){
 }
 
 
-//Returns an array of slots occupied by course_1, course_2.
-// This function is redundant. 
-function merge_timings(course_1, course_2){
-    var course_one_array = get_course_timings(course_1)
-    var course_two_array = get_course_timings(course_2)
-    return course_one_array.concat(course_two_array)
-}
-
 
 /*
 Utility function. Returns the first clashing interval. I was forced
 to break.
 Usage:
-return_bad_intervals(dept_times, course), where dept_times is an array of 
+return_bad_intervals(current_timings, course), where current_timings is an array of 
 intervals.
 Example:
 return_bad_intervals(merge_course_times(['EE210A', 'TA202A']), "ESO207A")
 Output: [['1000', '1100']]
 */
-function return_bad_intervals(dept_times, course){
-    // var dept_times = get_dept_time(dept, semester)
+function return_bad_intervals(current_timings, course){
+    // var current_timings = get_dept_time(dept, semester)
     var course_times = get_course_timings(course)
     var bad_intervals = []
     for (let i = 0; i < course_times.length; i++){
-        for (let j = 0; j < dept_times.length; j++){
-            if(course_times[i][0] >= dept_times[j][0]){
-                if (course_times[i][0] <= dept_times[j][1]){
-                    bad_intervals.push([course_times[i], dept_times[j]])
-                    break;
+        for (let j = 0; j < current_timings.length; j++){
+            if(course_times[i][0] >= current_timings[j][0]){
+                if (course_times[i][0] <= current_timings[j][1]){
+                    bad_intervals.push([course_times[i], current_timings[j]])
+                    return bad_intervals
                 }
             }
-            else if(course_times[i][1] >= dept_times[j][0]){
-            if (course_times[i][1] <= dept_times[j][1]){
-                bad_intervals.push([course_times[i], dept_times[j]])
-                break;
+            else if(course_times[i][1] >= current_timings[j][0]){
+            if (course_times[i][1] <= current_timings[j][1]){
+                bad_intervals.push([course_times[i], current_timings[j]])
+                return bad_intervals
             }
         }
         }
@@ -119,14 +142,14 @@ function return_bad_intervals(dept_times, course){
 Utility function. Returns if the given course clashes with the courses one is
 taking in the semester.
 Usage:
-check_clashes(dept_times, course), where dept_times is an array of 
+check_clash_between_current_schedule_and_course(current_timings, course), where current_timings is an array of 
 intervals.
 Example:
-check_clashes(merge_course_times(['EE210A', 'TA202A']), "ESO207A")
+check_clash_between_current_schedule_and_course(merge_course_times(['EE210A', 'TA202A']), "ESO207A")
 Output: true
 */
-function check_clashes(dept_times, course){
-    var bad_intervals = return_bad_intervals(dept_times, course)
+function check_clash_between_current_schedule_and_course(current_timings, course){
+    var bad_intervals = return_bad_intervals(current_timings, course)
     if (bad_intervals.length == 0){
         return false
     }
@@ -139,13 +162,13 @@ function check_clashes(dept_times, course){
 Utility function. Returns all courses from the chosen department
 a person can take.
 Usage:
-get_eligilble_courses(dept_times, target_dept), where dept_times is an array of 
+get_eligilble_courses(current_timings, target_dept), where current_timings is an array of 
 intervals.
 Example:
 get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
 Output: 'CGS402A', 'CGS612A', 'CGS621A', 'CGS641A', 'CGS691A', 'CGS698D', 'CGS698E', 'CGS799', 'CGS899']
 */
-function get_eligible_courses(dept_timings, target_dept){
+function get_eligible_courses(current_timings, target_dept){
     target_courses = get_all_courses_by_department(target_dept)
     var len = target_courses.length
     // console.log(len)
@@ -153,11 +176,11 @@ function get_eligible_courses(dept_timings, target_dept){
     for (let i = 0; i < len; i++){
         var course_coode = target_courses[i]["course_code"]
         // console.log(course_coode)
-        var z = check_clashes(dept_timings, course_coode)
-        // var bad = return_bad_intervals(dept_timings, target_dept[i].course_code)
+        var z = check_clash_between_current_schedule_and_course(current_timings, course_coode)
+        // var bad = return_bad_intervals(current_timings, target_dept[i].course_code)
                 // console.log(bad)
         if (z == false){
-            good_courses.push(course_coode)
+            good_courses.push(target_courses[i])
         }
     }
     return good_courses
@@ -168,7 +191,7 @@ function get_eligible_courses(dept_timings, target_dept){
 Main function. Returns course objects corresponding all courses from the chosen department
 a person can take.
 Usage:
-get_eligilble_courses(dept_times, target_dept), where dept_times is an array of 
+get_eligilble_courses(current_timings, target_dept), where current_timings is an array of 
 intervals.
 Example:
 get_eligible_courses(merge_course_times(['EE210A', 'TA202A']), "CGS")
@@ -189,8 +212,8 @@ timings_since_epoch: (4) [Array(2), Array(2), Array(2), Array(2)]
 tut: "T 10:00-11:00"
 
 */
-function get_eligible_json(dept_timings, target_dept){
-    var good_courses = get_eligible_courses(dept_timings, target_dept)
+function get_eligible_json(current_timings, target_dept){
+    var good_courses = get_eligible_courses(current_timings, target_dept)
     var list_of_objects = []
     target_courses = get_all_courses_by_department(target_dept)
 
@@ -218,15 +241,15 @@ templates = template_data
 // var clash = check_clash(temp, mth_times)
 // console.log(clash)
 // console.log(get_all_courses_by_department("CSE"))
-// console.log(get_eligible_json(get_dept_time("EE", "4"), "MTH"))
-// console.log(check_clashes(get_dept_time("EE", "4"), "MTH204A"))
+console.log(get_eligible_courses(merge_course_times(get_template("EE", "4")), "MTH"))
+// console.log(check_clash_between_current_schedule_and_course(merge_course_times(get_template("EE", "4")), "MTH204A"))
 //testing
-console.log(get_course_timings("ESO207A"))
+// console.log(get_course_timings("ESO207A"))
 // console.log(get_template("BSBE", "4"))
 // console.log(get_dept_time("EE", "4"))
 // console.log(merge_timings("ESO207A", "MTH302A"))
 // console.log(merge_course_times(get_template("EE", "4")))
 // console.log(return_bad_intervals(get_dept_time("EE", "4"), "ESO207A"))
 
-
+console.log(get_course_details("ESO207A"))
 // getapi(api_url)
