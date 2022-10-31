@@ -18,7 +18,7 @@ class CourseTimings: # The objects for these would hold Lecture, Tutorial & Lab 
             'Th': [],
             'F': [],
         }
-        self.labTimingsDict = {
+        self.labTimingsDict = { 
             'M': [],
             'T': [],
             'W': [],
