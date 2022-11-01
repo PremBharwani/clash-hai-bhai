@@ -122,23 +122,18 @@ function return_bad_intervals(current_timings, course){
     var bad_intervals = []
     for (let i = 0; i < course_times.length; i++){
         for (let j = 0; j < current_timings.length; j++){
-            if(parseInt(course_times[i][0]) >= parseInt(current_timings[j][0])){
-                if (parseInt(course_times[i][0]) <= parseInt(current_timings[j][1])){
-                    bad_intervals.push([course_times[i], current_timings[j]])
-                    return bad_intervals
-                }
-            }
-            else if(parseInt(course_times[i][1]) >= parseInt(current_timings[j][0])){
-            if (parseInt(course_times[i][1]) <= parseInt(current_timings[j][1])){
-                bad_intervals.push([course_times[i], current_timings[j]])
-                return bad_intervals
+            var start = parseInt(course_times[i][0])
+            var end = parseInt(course_times[i][1])
+            var template_start = parseInt(current_timings[j][0])
+            var template_end = parseInt(current_timings[j][1])
+            if (!((start >= template_end) || (end <= template_start))){
+                bad_intervals.push([start, end], [template_start, template_end])
             }
         }
-        }
+        
     }
     return bad_intervals
 }
-
 
 
 
@@ -211,24 +206,3 @@ let myJSON = course_data
 let templates = template_data
 
 
-
-//TESTING
-// var temp = get_dept_time("4", "3")
-// console.log(temp)
-// var mth_times = get_course_timings("MTH204A")
-// console.log(mth_times)
-// var clash = check_clash(temp, mth_times)
-// console.log(clash)
-// console.log(get_all_courses_by_department("CSE"))
-// console.log(get_eligible_courses(get_template("EE", "4"), "MTH"))
-// console.log(check_clash_between_current_schedule_and_course(merge_course_times(get_template("EE", "4")), "MTH204A"))
-//testing
-// console.log(get_course_timings("ESO207A"))
-// console.log(get_template("BSBE", "4"))
-// console.log(get_dept_time("EE", "4"))
-// console.log(merge_timings("ESO207A", "MTH302A"))
-// console.log(merge_course_times(get_template("EE", "4")))
-// console.log(return_bad_intervals(get_dept_time("EE", "4"), "ESO207A"))
-
-// console.log(get_course_details("ESO207A"))
-// getapi(api_url)
