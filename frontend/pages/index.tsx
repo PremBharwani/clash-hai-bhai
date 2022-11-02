@@ -40,7 +40,7 @@ const semesters = ["2","4","6","8"];
 
 export default function Home(){
 
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
