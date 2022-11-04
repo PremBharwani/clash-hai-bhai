@@ -1,26 +1,34 @@
-# Clash-Hai-Bhai
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Getting Started
 
-> The story behind the name, in case you were wondering: 
->
-> Friend 1: "Oye tu konsa optional course le raha hai? ESO207 lele accept ho raha hai"
->
-> Friend 2: "clash hai bhai!"
+First, run the development server:
 
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Usage
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-( Find the usage description in the README of the respective directories itself )
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-* [extract_course_data](extract_course_data) Directory to parse the excel file into JSON which will be later used for processing the queries. The excel file is downloaded from Pingala itself.
-* [frontend](frontend) directory contains the code/utils for checking the clashes and the main driver code. Run this to serve a web app for checking the clashes.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-## Motivation
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-I made this tool because currently we do not have any facility that can automatically allow us to tailor our academic semesters at IITK. And I have realized that the academic flexibility is something which students at IITK do not utilize to the fullest. If you could plan your academic template well in advance you could make space to get courses that you would actually want to learn from, rather than just relying on the courses your friends opt in for. 
+## Learn More
 
-By this tool, I want people to be much more aware about the courses that are available for their disposal without much hassle. Because the reason of people not being aware of the courses they could elect is due to the intensive manual labour one has to go through to scan through the Course Schedule from the DOAA website. And trust me scanning through the courses and finding a course you're interested in and at the same time doesn't clash with your course basket is just boring! Phew!
+To learn more about Next.js, take a look at the following resources:
 
-Nonetheless, I worked on this tool to automate this search process! And I wanted to extend this to the IITK community! I am still working on this project to get this deployed as a proper app before the next pre-registration! You can contact me in case you'd want some help to get this basic model running OR if you'd like to contribute!
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-( The documentation is not up to the mark yet, I hope to do that sooner... )
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -2,27 +2,27 @@ __pycache__/
 extract_data/
 lmao/
 # dependencies
-frontend/node_modules
-frontend/.pnp
-frontend/.pnp.js
+node_modules
+.pnp
+.pnp.js
 
 # testing
 frontend/coverage
 
 # production
-frontend/build
-frontend/.env
+build
+.env
 
 # misc
-frontend/.DS_Store
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
-frontend/.vscode/
-
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
 
 backend/env/
