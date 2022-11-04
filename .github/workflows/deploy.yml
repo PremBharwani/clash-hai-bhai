@@ -30,7 +30,7 @@ jobs:
         run: yarn && yarn build && yarn export
 
       - name: Deploy to GitHub Pages
-          uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: out # The folder the action should deploy.
