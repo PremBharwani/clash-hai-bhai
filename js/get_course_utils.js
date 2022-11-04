@@ -1,5 +1,5 @@
-import { course_data } from "./course_data.js"
-import { template_data } from "./template.js"
+import { course_data } from "../public/course_data.js"
+import { template_data } from "../public/template.js"
 
 /*
 Utility function. It returns the array of intervals a course occupies in a week.

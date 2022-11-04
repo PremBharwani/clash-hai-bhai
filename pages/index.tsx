@@ -5,8 +5,8 @@ import { useState,useMemo } from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { course_data } from "../js/course_data.js"
-import { template_data } from '../js/template.js'
+import { course_data } from "../public/course_data.js"
+import { template_data } from '../public/template.js'
 import { get_eligible_courses } from "../js/get_course_utils.js"
 
 interface semTemplate {
