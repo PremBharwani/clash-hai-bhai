@@ -35,11 +35,11 @@ export const template_data = {
     "CE": {
         "1":["MTH101A", "PHY103A", "CHM101A", "LIF101A", "PE101A", "TA101A"],
         "2":["MTH102A", "PHY102A", "PHY101A", "ESC101A", "CHM102A", "PE102A"],
-        "3":["CE241", "TA202A", "COM200"],
-        "4":["CE242", "CE262A", "CE272", "ESC201A", "TA201A"],
-        "5":["CE311", "CE331A", "CE351A", "CE361A", "CE371A", "CE341A"],
+        "3":["CE241A", "TA202A", "COM200"],
+        "4":["CE242A", "CE262A", "CE272A", "ESC201A", "TA201A"],
+        "5":["CE311A", "CE331A", "CE351A", "CE361A", "CE371A", "CE341A"],
         "6":["CE352A", "CE372A", "CE382"],
-        "7":["CE441b"],
+        "7":["CE441B"],
         "8":[]
     },
 
@@ -84,7 +84,7 @@ export const template_data = {
         "5":["ME301A", "ME321A", "ME352A", "ME361A", "ME399A"],
         "6":["ME341A", "ME351A", "ME354A"],
         "7":["ME401A", "ME451A"],
-        "8":["ME461A", "ME452"]
+        "8":["ME461A", "ME452A"]
     },
     "MTH":{
         "1":["MTH101A", "PHY103A", "CHM101A", "ESC101A", "PE101A"],
