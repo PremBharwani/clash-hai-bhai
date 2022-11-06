@@ -1,5 +1,5 @@
-import { course_data } from "../public/course_data.js"
-import { template_data } from "../public/template.js"
+import { course_data } from "./course_data.js"
+import { template_data } from "./template.js"
 
 /*
 Utility function. It returns the array of intervals a course occupies in a week.
@@ -51,9 +51,9 @@ export function get_course_details(id){
             if (myJSON[depts[i]][j].course_code == id){
                 // console.log(myJSON[i])
                 return myJSON[depts[i]][j]
+            }
         }
     }
-}
 }
 /*
 Utility function. It returns the template of a department. No MTH :(.
@@ -80,7 +80,6 @@ export function get_all_courses_by_department(department){
     return myJSON[department]
 }
 
-
 /*
 Utility function. It returns a list of time intervals, basically
 the union of time intervals of courses.
@@ -99,7 +98,6 @@ function merge_course_times(courses){
         for (let j = 0; j < course_deets.length; j++){
             time_intervals.push(course_deets[j])
         }
-        
     }
     return time_intervals
 }
@@ -192,6 +190,14 @@ export function get_eligible_courses(current_courses, target_dept){
         }
     }
     return good_courses
+}
+
+export function get_all_dept_eligible_courses(current_courses){
+    let all_eligible_courses = [];
+    for(const dept of depts){
+        all_eligible_courses = all_eligible_courses.concat(get_eligible_courses(current_courses,dept));
+    }
+    return all_eligible_courses;
 }
 
 function get_all_departments(){
