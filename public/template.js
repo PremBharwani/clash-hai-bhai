@@ -38,7 +38,7 @@ export const template_data = {
         "3":["CE241A", "TA202A", "COM200"],
         "4":["CE242A", "CE262A", "CE272A", "ESC201A", "TA201A"],
         "5":["CE311A", "CE331A", "CE351A", "CE361A", "CE371A", "CE341A"],
-        "6":["CE352A", "CE372A", "CE382"],
+        "6":["CE352A", "CE372A", "CE382A"],
         "7":["CE441B"],
         "8":[]
     },
