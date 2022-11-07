@@ -25,13 +25,14 @@ const allDepts = Object.keys(course_data);
 const allTemplates = template_data;
 
 interface courses {
+  course_code: string;
+  course_name: string;
   credits: string;
   instructor: string;
   instuctor_email: string;  
   lec: string;
   tut: string;
   lab: string;
-  course_code: string;
 }
 
 const semesters = ["4","6","8"];
@@ -48,6 +49,7 @@ const getTemplateRows = (template: string[]):courses[] => {
           tut: "",
           lab: "",
           course_code: course,
+          course_name: "",
         })
       }
       return (course_details as courses);
@@ -209,6 +211,7 @@ export default function Home(){
   const handleCustomTemplate = () => {
     setTemplate([]);
     setTemplateRows([] as courses[]);
+    setTotalCredits(0);
     const elegible_courses = get_all_dept_eligible_courses(template);
     setAllAvailableCourses(elegible_courses);
   }
@@ -217,6 +220,11 @@ export default function Home(){
     {
       field: 'course_code',
       headerName: 'Course code',
+      renderCell: RenderCellExpand
+    },
+    {
+      field: 'course_name',
+      headerName: 'Course Name',
       renderCell: RenderCellExpand
     },
     {
@@ -269,6 +277,11 @@ export default function Home(){
     {
       field: 'course_code',
       headerName: 'Course Code',
+      renderCell: RenderCellExpand
+    },
+    {
+      field: 'course_name',
+      headerName: 'Course Name',
       renderCell: RenderCellExpand
     },
     {
@@ -372,6 +385,7 @@ export default function Home(){
                       label="Select Branch"
                       onChange={handleChangeBranch}
                     >
+                      <MenuItem value=""></MenuItem>
                       {
                         (allBranches.map((branch,index) => {
                           return (<MenuItem key={index} value={branch}>{branch}</MenuItem>)
@@ -398,7 +412,7 @@ export default function Home(){
                 </Stack>
                 <Typography><b>Total Credits = {totalCredits}</b></Typography>
               </Stack>
-              <Stack direction={{xs: 'column', sm: 'row'}} spacing={2}>
+              <Stack direction={{xs: 'column', sm: 'row'}} spacing={2} alignItems="center">
                 <Stack>
                   <InputLabel id="dept-select ">Dept to choose courses from</InputLabel>
                   <Select
@@ -420,6 +434,7 @@ export default function Home(){
                   variant="outlined"
                   size="small"
                   onClick={handleCustomTemplate}
+                  sx={{height:50}}
                 >
                     Build Custom Template
                 </Button>
