@@ -3,8 +3,7 @@ import json
 from tokenize import String
 import pandas as pd
 import time
-import fix
-import epoch
+
 
 path = "sched.csv"
 
@@ -43,5 +42,10 @@ def create_output():
 create_output()
 print("DONE")
 
+
+#!DO NOT MOVE THE IMPORTS UP. FIX depends on a CSV file that ust be created right before
+#! it should be called.
+import fix
+import epoch
 fix.get_fixed_json("courses.json")
 epoch.add_epoch_key("courses.json")
