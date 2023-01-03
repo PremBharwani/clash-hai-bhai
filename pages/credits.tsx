@@ -29,35 +29,26 @@ const credits:profile[] = [
         name:"Rahul Jha",
         mail:"rahulj21@iitk.ac.in"
     },
-    {
-        image:"/images/profile.png",
-        name:"Ridin Dutta",
-        mail:"ridind21@iitk.ac.in"
-    },
-    {
-        image:"/images/profile.png",
-        name:"Geetika",
-        mail:"geetika21@iitk.ac.in"
-    }
 ]
 
 export default function Credits(){
     return (
         <Paper sx={{minHeight: "100vh", height:"fit-content"}}>
-            <Stack spacing={2} alignItems="center">
-                <Stack 
-                    direction="row" 
-                    justifyContent="flex-end" 
-                    spacing={1} 
-                    padding={1} 
-                    sx={{width: "100%"}}
+            <Stack spacing={2} alignItems="center" padding={2}>
+                <Typography
+                    variant="h3"
+                    noWrap
+                    component="a"
+                    sx={{
+                    mr: 2,
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    }}
                 >
-                    <Link href="/">HOME</Link>
-                    <Link href="/faq">FAQ</Link>
-                    <Link href="/credits">Credits</Link>
-                </Stack>
-                <Typography variant="h3" align="center" gutterBottom>
-                    Credits
+                    CREDITS
                 </Typography>
                     <Card
                         elevation={5}

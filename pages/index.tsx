@@ -1,15 +1,11 @@
 import Head from 'next/head'
 import { DataGrid,GridColDef, GridToolbar } from '@mui/x-data-grid';
-import { Button,Card, CssBaseline, Grid, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography,Paper,Box} from '@mui/material';
-import { useState,useMemo } from 'react';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Button,Card, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography,Paper,Box} from '@mui/material';
+import { useState } from 'react';
 import { course_data } from "../js/course_data.js"
 import { template_data } from '../js/template.js'
 import { get_eligible_courses,get_all_dept_eligible_courses,get_course_details } from "../js/get_course_utils.js"
 import { RenderCellExpand } from "../components/renderCellExpand"
-import Link from 'next/link'
 interface semTemplate {
   "1":string[];
   "2":string[];
@@ -55,7 +51,7 @@ const getTemplateRows = (template: string[]):courses[] => {
       return (course_details as courses);
       }) as courses[];
 }
-
+ 
 const getCredits = (credits: string): number => {
   let c = 0;
   let d = 1;
@@ -67,27 +63,6 @@ const getCredits = (credits: string): number => {
 }
 
 export default function Home(){
-
-  const [mode, setMode] = useState<'light' | 'dark'>('dark');
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode],
-  );
-
   const allBranches: string[] = Object.keys(allTemplates);
   const [allSemTemplates,setAllSemTemplates] = useState<semTemplate>({} as semTemplate);
   const [branch, setBranch] = useState<string>("");
@@ -332,8 +307,6 @@ export default function Home(){
   ]
 
   return (
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
     <div>
         <Head>
           <title>Clash Hai Bhai!</title>
@@ -349,14 +322,21 @@ export default function Home(){
             padding={1} 
             sx={{width: "100%"}}
           >
-            <Link href="/faq">FAQ</Link>
-            <Link href="/credits">Credits</Link>
-            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
           </Stack>
-          <Typography variant="h3" align="center" gutterBottom>
-            Clash Hai Bhai!
+          <Typography
+            variant="h3"
+            noWrap
+            component="a"
+            sx={{
+            mr: 2,
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            color: 'inherit',
+            textDecoration: 'none',
+            }}
+          >
+            CLASH HAI BHAI!
           </Typography>
           <Card
             elevation={5}
@@ -431,7 +411,7 @@ export default function Home(){
                   </Select>
                 </Stack>
                 <Button 
-                  variant="outlined"
+                  variant="contained"
                   size="small"
                   onClick={handleCustomTemplate}
                   sx={{height:50}}
@@ -484,6 +464,5 @@ export default function Home(){
         </Stack>
       </Paper>
     </div>
-    </ThemeProvider>
   );
 }
