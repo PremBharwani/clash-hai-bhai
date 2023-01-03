@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import { DataGrid,GridColDef, GridToolbar } from '@mui/x-data-grid';
-import { Button,Card, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography,Paper,Box} from '@mui/material';
+import { Button,Card, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography,Paper,Box, Tooltip} from '@mui/material';
 import { useState } from 'react';
 import { course_data } from "../js/course_data.js"
 import { template_data } from '../js/template.js'
 import { get_eligible_courses,get_all_dept_eligible_courses,get_course_details } from "../js/get_course_utils.js"
-import { RenderCellExpand } from "../components/renderCellExpand"
+import CellExpand from '../components/cellExpand';
 interface semTemplate {
   "1":string[];
   "2":string[];
@@ -195,12 +195,12 @@ export default function Home(){
     {
       field: 'course_code',
       headerName: 'Course code',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'course_name',
       headerName: 'Course Name',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'credits',
@@ -209,27 +209,27 @@ export default function Home(){
     {
       field: 'lec',
       headerName: 'Lecture Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'tut',
       headerName: 'Tutorial Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'lab',
       headerName: 'Lab Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     }, 
     {
       field: 'instructor',
       headerName: 'Instructor',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'instructor_email',
       headerName: 'Instructor E-mail',
-      renderCell: RenderCellExpand,
+      renderCell: CellExpand,
       hide: true
     },
     {
@@ -252,42 +252,42 @@ export default function Home(){
     {
       field: 'course_code',
       headerName: 'Course Code',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'course_name',
       headerName: 'Course Name',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'credits',
       headerName: 'Credits',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'lec',
       headerName: 'Lecture Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'tut',
       headerName: 'Tutorial Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     },
     {
       field: 'lab',
       headerName: 'Lab Timings',
-      renderCell: RenderCellExpand
+      renderCell: CellExpand
     }, 
     {
       field: 'instructor',
       headerName: 'Instructor',
-      renderCell: RenderCellExpand,
+      renderCell: CellExpand,
     },
     {
       field: 'instructor_email',
       headerName: 'Instructor E-mail',
-      renderCell: RenderCellExpand,
+      renderCell: CellExpand,
       hide: true
     },
     {

@@ -56,5 +56,6 @@ try:
         spreadsheetId=SAMPLE_SPREADSHEET_ID, 
         body=update_spreadsheet_data).execute()
     os.system('git commit -m "template change" ./js/template.js')
+    os.system('git push')
 except HttpError as err:
     print(err)
