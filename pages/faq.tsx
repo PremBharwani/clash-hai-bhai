@@ -16,21 +16,22 @@ const faq:faq[] = [
 export default function FAQ(){
     return (
         <Paper sx={{minHeight: "100vh", height:"fit-content"}}>
-            <Stack 
-                direction="row" 
-                justifyContent="flex-end" 
-                spacing={1} 
-                padding={1} 
-                sx={{width: "100%"}}
-            >
-                <Link href="/">HOME</Link>
-                <Link href="/faq">FAQ</Link>
-                <Link href="/credits">Credits</Link>
-            </Stack>
-            <Stack spacing={2} alignItems="center">
-                <Typography variant="h3" align="center" gutterBottom>
-                    FAQ
-                </Typography>
+            <Stack spacing={2} alignItems="center" padding={2}>
+            <Typography
+            variant="h3"
+            noWrap
+            component="a"
+            sx={{
+            mr: 2,
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            color: 'inherit',
+            textDecoration: 'none',
+            }}
+          >
+            FAQ
+          </Typography>
                 <Card
                     elevation={5}
                     sx={{
