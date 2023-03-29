@@ -134,7 +134,7 @@ def add_epoch_key(filename):
                 start, stop = timings[day][0], timings[day][1]
                 if day in epoch_dict:
                     timings_list.append([return_since_epoch(start, day), return_since_epoch(stop, day)])
-            print(timings_list)
+            # print(timings_list)
             dict[dept][i]["timings_since_epoch"] = timings_list
         f = open(filename, 'w')
         json.dump(dict, f)

@@ -31,7 +31,7 @@ interface courses {
   lab: string;
 }
 
-const semesters = ["4","6","8"];
+const semesters = ["3","5","7"];
 
 const getTemplateRows = (template: string[]):courses[] => {
     return template.map((course) => {

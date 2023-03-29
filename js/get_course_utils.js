@@ -207,8 +207,14 @@ function get_all_departments(){
 }
 
 //declaration
-const depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
 let myJSON = course_data
+
+// extract the top level keys from myJSON
+let depts = Object.keys(myJSON)
+
+// const depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
+
+console.log("## MYJSON = ", myJSON)
 let templates = template_data
 
 

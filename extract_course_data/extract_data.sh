@@ -4,10 +4,10 @@
 python3 scrape_csv.py
 
 # Moving the newly created courses.json into the frontend/js directory
-mv courses.json ../frontend/js/
+mv courses.json ../js/
 
 # Changing the cwd to the frontend/js directory
-cd ../frontend/js/
+cd ../js/
 
 # Renaming the courses.json file to course_data.js
 mv courses.json course_data.js
