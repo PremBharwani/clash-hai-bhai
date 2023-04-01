@@ -8,6 +8,9 @@ import utils
 path = "sched.csv"
 
 def get_last_open_bracket(string):
+    """
+    Get the rightmost/last open bracket '(' to assist in retrieving the course code
+    """
     pos = 0
     for i in range(len(string)):
         if string[i] == "(":
@@ -15,6 +18,9 @@ def get_last_open_bracket(string):
     return pos
 
 def create_output():
+    """
+    Reading through the CSV file & creating the JSON file as the output which can further be used by the frontend.
+    """
     with open(path, 'r') as file_csv:
             file_reader = csv.reader(file_csv)
             my_dict = {}
@@ -38,13 +44,8 @@ def create_output():
             json.dump(my_dict, f)
 
 
-
+print("Converting the CSV file into JSON...")
 create_output()
-print("DONE")
-
-
-#!DO NOT MOVE THE IMPORTS UP. FIX depends on a CSV file that ust be created right before
-#! it should be called.
-
 utils.get_fixed_json("courses.json")
 utils.add_epoch_key("courses.json")
+print("Converted the data into JS format that will now be used by the app!")
