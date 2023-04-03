@@ -159,7 +159,7 @@ export default function Home(){
             textDecoration: 'none',
             }}
           >
-            CLASH HAI BHAI!
+            CLASH है BHAI!
           </Typography>
           <Typography variant="h6" gutterBottom sx={{color:"red", fontStyle:"italic"}}>Clashes due to labs are not considered</Typography>
           <Card
