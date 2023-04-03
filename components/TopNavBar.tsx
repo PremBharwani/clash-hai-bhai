@@ -18,7 +18,7 @@ export default function TopNavBar({
                     variant="h6"
                     noWrap
                     component="a"
-                    href={(process.env.NODE_ENV === 'production') ? ("clash-hai-bhai/"):("/")}
+                    href={(process.env.NODE_ENV === 'production') ? ("/"):("/")}
                     sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },
@@ -37,7 +37,7 @@ export default function TopNavBar({
                                 <Typography
                                 noWrap
                                 component="a"
-                                href={(process.env.NODE_ENV === 'production') ? ("clash-hai-bhai/"+page[0]):(page[0])}
+                                href={(process.env.NODE_ENV === 'production') ? (""+page[0]):(page[0])}
                                 sx={{
                                   mt: 1,
                                     mr: 3,
