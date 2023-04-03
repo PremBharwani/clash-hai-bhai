@@ -10,18 +10,19 @@ get_course_timings("ESO207A")
 Output: [['3400', '3500'], ['5800', '5900'], ['10600', '10700']]
 */
 function get_course_timings(id){
+    id = remove_last_chars(id)
         for (let i = 0; i < depts.length; i++){
             // console.log(depts[i])
             // console.log(myJSON[depts[i]].length)
             for (let j = 0; j < myJSON[depts[i]].length; j++){
                 // console.log(myJSON[depts[i]][j].course_code)
-                if (myJSON[depts[i]][j].course_code == id){
+                if (remove_last_chars(myJSON[depts[i]][j].course_code) == id){
                     // console.log(myJSON[i])
                     return myJSON[depts[i]][j].timings_since_epoch
                 }
             }
         }
-
+    return []
 }
 
 /*
@@ -42,13 +43,21 @@ Output: course_code: "ESO207A"
 ​n_course: "215"
 ​pre_requisites: "(ESC101A)"
 */
+function remove_last_chars(str){
+    while(str.length>0 && str[str.length-1] >= 'A'){
+        str = str.slice(0,-1)
+    }
+    return str
+}
+
 export function get_course_details(id){
+    id = remove_last_chars(id)
     for (let i = 0; i < depts.length; i++){
         // console.log(depts[i])
         // console.log(myJSON[depts[i]].length)
         for (let j = 0; j < myJSON[depts[i]].length; j++){
             // console.log(myJSON[depts[i]][j].course_code)
-            if (myJSON[depts[i]][j].course_code == id){
+            if (remove_last_chars(myJSON[depts[i]][j].course_code) == id){
                 // console.log(myJSON[i])
                 return myJSON[depts[i]][j]
             }
@@ -64,7 +73,16 @@ get_template("EE", "4")
 Output: ['EE210A', 'EE250A', 'TA202A']
 */
 function get_template(dept, semester){
-    return templates[dept][semester]
+    let template = templates[dept][semester];
+    for(let i = 0; i < template.length; i++){
+        let id = remove_last_chars(template[i])
+        for(let j = 0; j < myJSON[dept].length; j++){
+            if(remove_last_chars(myJSON[dept][j].course_code) == id){
+                template[i] = myJSON[dept][j].course_code
+            }
+        }
+    }
+    return template
 }
 
 /*
@@ -95,8 +113,10 @@ function merge_course_times(courses){
     for (let i = 0; i < courses.length; i++){
         // console.log(template[i])
         var course_deets = get_course_timings(courses[i])
-        for (let j = 0; j < course_deets.length; j++){
-            time_intervals.push(course_deets[j])
+        if(course_deets){
+            for (let j = 0; j < course_deets.length; j++){
+                time_intervals.push(course_deets[j])
+            }
         }
     }
     return time_intervals
@@ -174,7 +194,7 @@ Output:
 7: Object { n_course: "118", dept: "CGS", course_name: "MS - RESEARCH THESIS(CGS899)", … }
 */
 export function get_eligible_courses(current_courses, target_dept){
-    var current_timings = merge_course_times(current_courses)
+    var current_timings = merge_course_times(current_courses.map((course) => remove_last_chars(course)))
     let target_courses = get_all_courses_by_department(target_dept)
     var len = target_courses.length
     // console.log(len)
@@ -200,12 +220,6 @@ export function get_all_dept_eligible_courses(current_courses){
     return all_eligible_courses;
 }
 
-function get_all_departments(){
-    for (key in myJSON){
-        console.log(key)
-    }
-}
-
 //declaration
 let myJSON = course_data
 
@@ -214,7 +228,6 @@ let depts = Object.keys(myJSON)
 
 // const depts = ['AE', 'BSBE', 'CE', 'CGS', 'CHE', 'CHM', 'COM', 'CSE', 'ECO', 'EE', 'ES', 'HSS', 'IME', 'MDES', 'ME', 'MS', 'MSE', 'MTH', 'NET', 'PHY', 'PSE', 'SEE']
 
-console.log("## MYJSON = ", myJSON)
 let templates = template_data
 
 

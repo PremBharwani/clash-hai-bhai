@@ -10,7 +10,7 @@ interface faq{
 const faq:faq[] = [
     {
         question:"What do I do if the template for my branch/sem is not available?",
-        answer:"Click on Build Custom Template button and then you can manually select from all the offered courses from all departments"
+        answer:"Click on others option in select branch dropdown and then you can manually select from all the offered courses from all departments section."
     },
 ]
 export default function FAQ(){
