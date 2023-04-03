@@ -18,7 +18,7 @@ export default function TopNavBar({
                     variant="h6"
                     noWrap
                     component="a"
-                    href="/"
+                    href={(process.env.NODE_ENV === 'production') ? ("clash-hai-bhai/"):("/")}
                     sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },
@@ -32,14 +32,15 @@ export default function TopNavBar({
                     CLASH HAI BHAI!
                 </Typography>
                 <Stack justifyContent="space-between" direction="row">
-                    <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }}>
                             {pages.map((page) => (
                                 <Typography
                                 noWrap
                                 component="a"
-                                href={page[0]}
+                                href={(process.env.NODE_ENV === 'production') ? ("clash-hai-bhai/"+page[0]):(page[0])}
                                 sx={{
-                                  mr: 2,
+                                  mt: 1,
+                                    mr: 3,
                                   fontFamily: 'monospace',
                                   fontWeight: 200,
                                   letterSpacing: '.3rem',
