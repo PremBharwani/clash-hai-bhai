@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const pages = [["/","HOME"], ["/faq","FAQ"],["/credits","CREDITS"],["https://forms.gle/eW5zmw757HMzPQfy7","FEEDBACK"]]
+const pages = [["./credits","CREDITS"],["https://forms.gle/eW5zmw757HMzPQfy7","FEEDBACK"]]
 
 export default function TopNavBar({
     theme,
