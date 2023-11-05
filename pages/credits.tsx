@@ -6,28 +6,39 @@ interface profile{
     image: string;
     name: string;
     mail: string;
+    github: string;
 }
 
 const credits:profile[] = [
     {
         image:"/images/profile.png",
         name:"Prem Bharwani",
-        mail:"premr20@iitk.ac.in"
+        mail:"premr20@iitk.ac.in",
+        github: "PremBharwani"
     },
     {
         image:"/images/profile.png",
         name:"Abhishek Shree",
-        mail:"shreea20@iitk.ac.in"
+        mail:"shreea20@iitk.ac.in",
+        github: "abhishekshree"
+    },
+    {
+        image:"/images/profile.png",
+        name:"Ishan Bawne",
+        mail:"ishanbawne20@iitk.ac.in",
+        github: "ishanbawne20"
     },
     {
         image:"/images/profile.png",
         name:"Krishnansh Agarwal",
-        mail:"krishnansh21@iitk.ac.in"
+        mail:"krishnansh21@iitk.ac.in",
+        github: "Krishnansh5"
     },
     {
         image:"/images/profile.png",
         name:"Rahul Jha",
-        mail:"rahulj21@iitk.ac.in"
+        mail:"rahulj21@iitk.ac.in",
+        github: "theslyther-in"
     },
 ]
 
